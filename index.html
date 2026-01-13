@@ -14,18 +14,17 @@
       background: black;
       overflow: hidden;
     }
-
     video {
       width: 100vw;
       height: 100vh;
       object-fit: cover;
+      background: black;
     }
   </style>
 </head>
 <body>
 
 <video id="v"
-       autoplay
        muted
        playsinline
        preload="auto">
@@ -35,10 +34,17 @@
 <script>
   const v = document.getElementById("v");
 
-  // Force loop (Samsung-safe)
+  function start() {
+    v.muted = true;
+    const p = v.play();
+    if (p) p.catch(() => setTimeout(start, 500));
+  }
+
+  start();
+
   v.addEventListener("ended", () => {
     v.currentTime = 0;
-    v.play();
+    start();
   });
 </script>
 
