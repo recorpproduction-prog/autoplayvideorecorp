@@ -25,26 +25,18 @@
 <body>
 
 <video id="v"
+       autoplay
        muted
        playsinline
        preload="auto">
-  <source src="https://github.com/recorpproduction-prog/autoplayvideorecorp/releases/tag/v1" type="video/mp4">
+  <source src="https://archive.org/download/video_20260113/video.mp4" type="video/mp4">
 </video>
 
 <script>
   const v = document.getElementById("v");
-
-  function start() {
-    v.muted = true;
-    const p = v.play();
-    if (p) p.catch(() => setTimeout(start, 500));
-  }
-
-  start();
-
   v.addEventListener("ended", () => {
     v.currentTime = 0;
-    start();
+    v.play();
   });
 </script>
 
