@@ -1,37 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <style>
     html, body {
       margin: 0;
-      padding: 0;
       width: 100%;
       height: 100%;
       background: black;
-      overflow: hidden;
     }
-
     video {
       width: 100%;
       height: 100%;
-      object-fit: cover;
-      background: black;
+      object-fit: contain;
     }
   </style>
 </head>
 <body>
 
-<video
-  autoplay
-  muted
-  loop
-  playsinline
-  preload="auto"
-  controls="false">
-  <source src="https://archive.org/download/video_20260113/video.mp4" type="video/mp4">
+<video controls playsinline>
+  <source src="https://archive.org/download/video_20260113_0302/video.mp4" type="video/mp4">
 </video>
 
 </body>
