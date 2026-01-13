@@ -3,9 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Video Loop</title>
-
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
   <style>
     html, body {
@@ -26,43 +24,23 @@
 </head>
 <body>
 
-  <video id="player"
-         muted
-         playsinline
-         preload="auto">
-    <source src="video.mp4" type="video/mp4">
-    Your browser does not support the video tag.
-  </video>
+<video id="v"
+       autoplay
+       muted
+       playsinline
+       preload="auto">
+  <source src="PASTE_GITHUB_RELEASE_VIDEO_URL_HERE" type="video/mp4">
+</video>
 
-  <script>
-    const video = document.getElementById("player");
+<script>
+  const v = document.getElementById("v");
 
-    function startPlayback() {
-      video.muted = true;
-      const p = video.play();
-      if (p !== undefined) {
-        p.catch(() => {
-          setTimeout(startPlayback, 500);
-        });
-      }
-    }
-
-    // Start immediately
-    startPlayback();
-
-    // Force loop (more reliable than loop attribute on Samsung)
-    video.addEventListener("ended", () => {
-      video.currentTime = 0;
-      startPlayback();
-    });
-
-    // Resume if browser suspends playback
-    document.addEventListener("visibilitychange", () => {
-      if (!document.hidden) {
-        startPlayback();
-      }
-    });
-  </script>
+  // Force loop (Samsung-safe)
+  v.addEventListener("ended", () => {
+    v.currentTime = 0;
+    v.play();
+  });
+</script>
 
 </body>
 </html>
