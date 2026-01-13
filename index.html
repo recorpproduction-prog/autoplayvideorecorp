@@ -25,40 +25,33 @@
 <body>
 
 <video
-  id="player"
+  id="video"
+  autoplay
   muted
-  playsinline
-  preload="auto">
+  playsinline>
   <source src="https://archive.org/download/video_20260113_0302/video.mp4" type="video/mp4">
 </video>
 
 <script>
-  const video = document.getElementById("player");
+  const video = document.getElementById("video");
 
-  function playVideo() {
+  function startPlayback() {
     video.muted = true;
-    const p = video.play();
-    if (p !== undefined) {
-      p.catch(() => {
-        setTimeout(playVideo, 500);
-      });
-    }
+    video.load(); // CRITICAL for Samsung
+
+    video.addEventListener("canplay", function onCanPlay() {
+      video.removeEventListener("canplay", onCanPlay);
+      const p = video.play();
+      if (p) p.catch(() => {});
+    });
   }
 
-  // Start playback
-  playVideo();
+  // Initial start
+  startPlayback();
 
   // Samsung-safe loop
   video.addEventListener("ended", () => {
-    video.currentTime = 0;
-    playVideo();
-  });
-
-  // Resume if browser suspends playback
-  document.addEventListener("visibilitychange", () => {
-    if (!document.hidden) {
-      playVideo();
-    }
+    setTimeout(startPlayback, 200); // small delay helps Samsung reset
   });
 </script>
 
